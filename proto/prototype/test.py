@@ -19,20 +19,16 @@ def main():
 
     # Getting a list of symbols from Lists
     ls_symbols = c_dataobj.get_symbols_from_list('myPortfolio')
-    print "Symbols from the list : ", ls_symbols
+    #print "Symbols from the list : ", ls_symbols
 
 
     ls_syms_toread = ['FB','GOOGL', 'INFI', 'MDSY', 'NVDA', 'TSLA']
 
     # List of TimeStamps to read
     # set start date
-    # set start date to now
+    # set start date to yesterday
     now = dt.datetime.now()
-    startdate = dt.datetime(now.year, now.month, now.day, 16)
-
-    if now.hour < 16:
-        startdate = dt.datetime(now.year, now.month, now.day, 16) - dt.timedelta(days=1)
-
+    startdate = dt.datetime(now.year, now.month, now.day, 16) - dt.timedelta(days=1)
     backtrace_range = 30
 
     ldt_timestamps =  [startdate - dt.timedelta(days=i) for i in range(0, backtrace_range)]
@@ -44,6 +40,15 @@ def main():
     # as a prarameter.
     df_close = c_dataobj.get_data(ldt_timestamps, ls_syms_toread, "close").dropna()
 
+    """
+    # Plotting the prices with x-axis=timestamps
+    plt.clf()
+    plt.plot(ldt_timestamps, df_close)
+    plt.legend(ls_syms_toread)
+    plt.ylabel('Adjusted Close')
+    plt.xlabel('Date')
+    plt.show()
+    """
     print df_close
 
 
