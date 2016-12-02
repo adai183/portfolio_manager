@@ -68,6 +68,8 @@ def get_yahoo_data(data_path, ls_symbols):
             print "URL Error for stock: {0} at {1}".format(symbol_name, url)
 
     print "All done. Got {0} stocks. Could not get {1}".format(len(ls_symbols) - miss_ctr, miss_ctr)
+    for e in ls_missed_syms:
+        print e
     return ls_missed_syms
 
 
@@ -83,18 +85,18 @@ def read_symbols(s_symbols_file):
     return ls_symbols
 
 
-def update_my_data():
-    '''Update the data in the root dir'''
-    c_dataobj = da.DataAccess('Yahoo', verbose=True)
-    s_path = c_dataobj.rootdir
-    ls_symbols = c_dataobj.get_all_symbols()
-    ls_missed_syms = get_yahoo_data(s_path, ls_symbols)
-    # Making a second call for symbols that failed to double check
-    get_yahoo_data(s_path, ls_missed_syms)
-    return
+# def update_my_data():
+#     '''Update the data in the root dir'''
+#     c_dataobj = da.DataAccess('Yahoo', verbose=True)
+#     s_path = c_dataobj.rootdir
+#     ls_symbols = c_dataobj.get_all_symbols()
+#     ls_missed_syms = get_yahoo_data(s_path, ls_symbols)
+#     # Making a second call for symbols that failed to double check
+#     get_yahoo_data(s_path, ls_missed_syms)
+#     return
 
 
-def main(path='data/Yahoo/', symbolsPath='data/Yahoo/Lists/portfolio.txt'):
+def main(path='data/Yahoo/', symbolsPath='data/Yahoo/Lists/temp.txt'):
     '''Main Function'''
     #path = './data/'
     ls_symbols = read_symbols(symbolsPath)
